@@ -19,6 +19,7 @@
         <junit.version>4.13.2</junit.version>
         <mockito.version>4.11.0</mockito.version>
         <log4j2.version>2.17.1</log4j2.version>
+        <jacoco.version>0.8.10</jacoco.version>
 
         <maven.compiler.plugin.version>3.9.0</maven.compiler.plugin.version>
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
@@ -207,6 +208,26 @@
                         -Dhazelcast.test.use.network=false
                     </argLine>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
