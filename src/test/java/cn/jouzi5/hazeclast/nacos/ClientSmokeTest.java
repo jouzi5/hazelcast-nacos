@@ -46,7 +46,7 @@ public class ClientSmokeTest extends HazelcastTestSupport {
         Assert.assertEquals(8848, (int) nacosContainer.getMappedPort(8848));
         Assert.assertEquals(9848, (int) nacosContainer.getMappedPort(9848));
 
-        Thread.sleep(10000);
+        Thread.sleep(100000);
     }
 
     @After
