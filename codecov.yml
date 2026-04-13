@@ -1,0 +1,7 @@
+# codecov.yml (放在项目根目录)
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
