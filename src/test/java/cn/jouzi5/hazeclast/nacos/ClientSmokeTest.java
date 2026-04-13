@@ -6,17 +6,18 @@ import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryStrategyConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.jet.pipeline.test.Assertions;
 import com.hazelcast.test.HazelcastSerialClassRunner;
 import com.hazelcast.test.HazelcastTestSupport;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
 
 import java.io.IOException;
-import java.time.Duration;
+import java.util.ArrayList;
 
 @RunWith(HazelcastSerialClassRunner.class)
 public class ClientSmokeTest extends HazelcastTestSupport {
@@ -30,19 +31,23 @@ public class ClientSmokeTest extends HazelcastTestSupport {
 
     @Before
     public void setUp() throws Exception {
-//        nacosContainer = new GenericContainer("nacos/nacos-server:v3.2.0")
-//                .withExposedPorts(8848, 9848, 8080)
-//                .withEnv("NACOS_AUTH_TOKEN", "VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=")
-//                .withEnv("NACOS_AUTH_IDENTITY_KEY", "nacos")
-//                .withEnv("NACOS_AUTH_IDENTITY_VALUE", "nacos")
-//                .withEnv("MODE", "standalone")
-//                .waitingFor(
-//                        Wait.forHttp("/nacos/v1/console/health/readiness")
-//                                .forPort(8848)
-//                                .forStatusCode(200)
-//                                .withStartupTimeout(Duration.ofMinutes(3))
-//                );
-//        nacosContainer.start();
+        ArrayList<String> ports = new ArrayList<>();
+        ports.add("8848:8848");
+        ports.add("9848:9848");
+        ports.add("8080:8080");
+
+        nacosContainer = new GenericContainer("nacos/nacos-server:v3.2.0")
+                .withEnv("NACOS_AUTH_TOKEN", "VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=")
+                .withEnv("NACOS_AUTH_IDENTITY_KEY", "nacos")
+                .withEnv("NACOS_AUTH_IDENTITY_VALUE", "nacos")
+                .withEnv("MODE", "standalone");
+        nacosContainer.setPortBindings(ports);
+        nacosContainer.start();
+
+        Assert.assertEquals(8848, (int) nacosContainer.getMappedPort(8848));
+        Assert.assertEquals(9848, (int) nacosContainer.getMappedPort(9848));
+
+        Thread.sleep(10000);
     }
 
     @After
@@ -51,7 +56,7 @@ public class ClientSmokeTest extends HazelcastTestSupport {
             HazelcastClient.shutdownAll();
             Hazelcast.shutdownAll();
         } finally {
-//            nacosContainer.close();
+            nacosContainer.close();
         }
     }
 
