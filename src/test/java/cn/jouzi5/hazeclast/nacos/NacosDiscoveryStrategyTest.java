@@ -1,16 +1,13 @@
 package cn.jouzi5.hazeclast.nacos;
 
 import com.hazelcast.logging.ILogger;
-import com.hazelcast.spi.discovery.DiscoveryNode;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 public class NacosDiscoveryStrategyTest {
 
