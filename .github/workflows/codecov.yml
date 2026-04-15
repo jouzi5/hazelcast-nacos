@@ -45,6 +45,7 @@ jobs:
         run: mvn clean package -DskipTests -q
 
       - name: SonarCloud Scan
+        if: github.actor != 'dependabot[bot]'
         uses: SonarSource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
