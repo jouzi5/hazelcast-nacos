@@ -54,7 +54,7 @@
         <maven.bundle.plugin.version>5.1.4</maven.bundle.plugin.version>
         <maven.gpg.plugin.version>3.0.1</maven.gpg.plugin.version>
         <maven.animal.sniffer.plugin.version>1.20</maven.animal.sniffer.plugin.version>
-        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.surefire.plugin.version>3.5.5</maven.surefire.plugin.version>
         <maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
         <spotless.plugin.version>2.27.0</spotless.plugin.version>
     </properties>
